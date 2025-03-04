@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependency directories
 node_modules
 .DS_Store
 dist
@@ -27,4 +28,5 @@ coverage
 *.sln
 *.sw?
 
+# TypeScript build info
 *.tsbuildinfo
