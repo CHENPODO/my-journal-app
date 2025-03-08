@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from "vue-router"
 </script>
 
 <template>
-	<div class="p-5">
+	<div class="p-6">
 		<RouterLink to="/" class="navbar p-3 rounded text-gray-800 hover:bg-blue-200 transition" active-class="bg-blue-300">HOME</RouterLink>
 		<RouterLink to="/calendar" class="navbar mr-5 p-3 rounded text-gray-800 hover:bg-blue-200 transition" active-class="bg-blue-300">calendar</RouterLink>
 
