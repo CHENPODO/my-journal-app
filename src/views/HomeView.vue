@@ -1,5 +1,7 @@
 <script setup></script>
 
 <template>
-	<main></main>
+	<div class="p-2">
+		<p>我是home</p>
+	</div>
 </template>
