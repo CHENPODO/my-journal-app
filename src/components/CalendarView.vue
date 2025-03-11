@@ -46,17 +46,35 @@ const changeMonth = (num) => {
 		currentYear.value += 1
 	}
 }
+
+//取得今日日期
+const today = new Date()
+//檢查「某一天」是否為「今天」
+const isToday = (day) => {
+	if (currentYear.value !== today.getFullYear()) {
+		return false
+	}
+	if (currentMonth.value !== today.getMonth()) {
+		return false
+	}
+	if (day !== today.getDate()) {
+		return false
+	}
+	return true
+}
+console.log(isToday(1)) // 這會印出 `false`（假設今天不是 1 號）
+console.log(isToday(new Date().getDate())) // 這應該會印出 `true`
 </script>
 
 <template>
-	<div class="p-6 shadows">
+	<div class="p-6 shadows calendar-container">
 		<!-- 月份切換 -->
 		<div class="flex justify-between">
 			<button @click="changeMonth(-1)" class="bottom-line pl-3 pr-3 font-extrabold bg-gray-50 cursor-pointer hover:bg-gray-200">
 				<i class="fa-solid fa-arrow-left"></i>
 			</button>
 			<span class="p-2 bg-gray-100 rounded">{{ currentYear }}年{{ currentMonth + 1 }}月</span>
-			<button @click="changeMonth(1)" class="bottom-line pl-3 pr-3 bg-gray-50 cursor-pointer rounded hover: bg-gray-200">
+			<button @click="changeMonth(1)" class="bottom-line pl-3 pr-3 bg-gray-50 cursor-pointer rounded hover:bg-gray-200">
 				<i class="fa-solid fa-arrow-right"></i>
 			</button>
 		</div>
@@ -69,7 +87,7 @@ const changeMonth = (num) => {
 			<!-- 日期格子 -->
 			<div class="grid grid-cols-7 grid-rows-6 text-center">
 				<div class="p-5 h-30" v-for="(day, index) in calendarDays" :key="index">
-					<span v-if="day">{{ day }}</span>
+					<span v-if="day" :class="{ 'bg-blue-200 text-white rounded-full px-1.5 py-1': isToday(day) }">{{ day }}</span>
 					<!-- 只有非空白格子才顯示數字 -->
 				</div>
 			</div>
@@ -78,6 +96,10 @@ const changeMonth = (num) => {
 </template>
 
 <style>
+.calendar-container {
+	max-width: 1000px;
+	margin: 0 auto;
+}
 div {
 	font-weight: 800 !important;
 }
