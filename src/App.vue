@@ -5,8 +5,9 @@ import { RouterLink, RouterView } from "vue-router"
 
 <template>
 	<div class="p-6">
-		<RouterLink to="/" class="navbar p-3 rounded text-gray-800 hover:bg-blue-200 transition" active-class="bg-blue-300">HOME</RouterLink>
-		<RouterLink to="/calendar" class="navbar mr-5 p-3 rounded text-gray-800 hover:bg-blue-200 transition" active-class="bg-blue-300">calendar</RouterLink>
+		<RouterLink to="/" class="navbar p-3 rounded text-gray-800 hover:bg-blue-200 transition" active-class="bg-blue-300">首頁</RouterLink>
+		<RouterLink to="/calendar" class="navbar mr-5 p-3 rounded text-gray-800 hover:bg-blue-200 transition" active-class="bg-blue-300">日曆</RouterLink>
+		<RouterLink to="/aboutMe" class="navbar mr-5 p-3 rounded text-gray-800 hover:bg-blue-200 transition" active-class="bg-blue-300">關於我們</RouterLink>
 
 		<!-- <a href="#"><i class="fa-solid fa-bars text-2xl"></i></a> -->
 

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from "vue"
+import Note from "@/components/Note.vue"
 // 定義星期標頭，使用v-for迴圈顯示
 const weekDay = ["日", "一", "二", "三", "四", "五", "六"]
 // 使用響應式數據 ref 建立 currentYears 變數 跟 currentMonth
@@ -64,6 +65,27 @@ const isToday = (day) => {
 }
 console.log(isToday(1)) // 這會印出 `false`（假設今天不是 1 號）
 console.log(isToday(new Date().getDate())) // 這應該會印出 `true`
+
+// 日期可以被點擊，並記錄是哪一天被點擊
+const selectedDay = ref(null)
+import { watch } from "vue"
+//監聽新舊值
+// watch(selectedDay, (newValue, oldValue) => {
+// 	console.log("selectedDay 改變了！")
+// 	console.log("新的選擇日期:", newValue)
+// 	console.log("舊的選擇日期:", oldValue)
+// })
+
+//新增 控制視窗 跟 儲存筆記 的響應式數據
+const noteRef = ref(null)
+
+const selectedNote = ref("") //儲存筆記
+// 點擊日期時開啟筆記
+const openNote = (day) => {
+	selectedDay.value = day // 設定選擇的日期
+	selectedNote.value = `這是 ${currentYear.value} 年 ${currentMonth.value + 1} 月 ${day} 日的日記`
+	noteRef.value.openNote()
+}
 </script>
 
 <template>
@@ -81,23 +103,25 @@ console.log(isToday(new Date().getDate())) // 這應該會印出 `true`
 
 		<!-- 星期標頭 -->
 		<div>
-			<div class="grid grid-cols-7 pt-7 border-gray-300">
+			<div class="grid grid-cols-7 pt-5 mt-2 border-gray-300 shadow">
 				<div class="bottom-line p-2 text-center font-extrabold" v-for="day in weekDay" :key="day">{{ day }}</div>
 			</div>
 			<!-- 日期格子 -->
 			<div class="grid grid-cols-7 grid-rows-6 text-center">
-				<div class="p-5 h-30" v-for="(day, index) in calendarDays" :key="index">
-					<span v-if="day" :class="{ 'bg-blue-200 text-white rounded-full px-1.5 py-1': isToday(day) }">{{ day }}</span>
+				<div class="p-5 h-30 shadow" v-for="(day, index) in calendarDays" :key="index">
+					<span v-if="day" @click="openNote(day)" :class="{ 'bg-blue-200 text-white rounded-full px-1.5 py-1': isToday(day) }">{{ day }}</span>
 					<!-- 只有非空白格子才顯示數字 -->
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- 筆記組件 -->
+	<Note ref="noteRef" :title="selectedNote" :content="selectedNote" :date="selectedDay" />
 </template>
 
 <style>
 .calendar-container {
-	max-width: 1000px;
+	max-width: 900px;
 	margin: 0 auto;
 }
 div {
